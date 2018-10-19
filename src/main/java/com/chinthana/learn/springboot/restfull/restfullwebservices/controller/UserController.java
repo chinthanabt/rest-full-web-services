@@ -15,7 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.chinthana.learn.springboot.restfull.restfullwebservices.dao.UserDAO;
 import com.chinthana.learn.springboot.restfull.restfullwebservices.dto.User;
-import com.chinthana.learn.springboot.restfull.restfullwebservices.utill.error.UserNotFoundException;
+import com.chinthana.learn.springboot.restfull.restfullwebservices.utill.UserNotFoundException;
 
 @RestController
 public class UserController {
