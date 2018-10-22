@@ -2,10 +2,21 @@ package com.chinthana.learn.springboot.restfull.restfullwebservices.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;;
+
 public class User {
+	
 	private Integer id;
+	
+	@Min(value=1, message ="Age should be grattor than zero")
 	private Integer age;
+	
+	@Size(min=5,  message ="Name should contains atleast two charactors")
 	private String name;
+	
+	@Past
 	private Date birthDate;
 	
 	protected User() {

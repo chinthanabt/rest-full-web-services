@@ -2,7 +2,7 @@ package com.chinthana.learn.springboot.restfull.restfullwebservices.utill;
 
 import java.util.Date;
 
-public class ExceptionResponse extends RuntimeException {
+public class ExceptionResponse {
 	
 	private Date timestamp;
 	private String errorMessage;
