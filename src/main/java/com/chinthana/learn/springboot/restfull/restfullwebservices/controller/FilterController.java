@@ -14,7 +14,7 @@ public class FilterController {
 	
 	@GetMapping(path = "/filtering")
 	public MappingJacksonValue getSomeBean() {
-		//Filter using dynamic filtering.
+		//Filter using dynamic filtering. only sending "field6", "field7" to the responce.
 		SimpleBeanPropertyFilter filter =  SimpleBeanPropertyFilter.filterOutAllExcept("field6", "field7");
 		FilterProvider filters = new SimpleFilterProvider().addFilter("SomeBeanPropertyFilter", filter);
 	 	SomeBean someBean = new SomeBean("field1", "field2", "field3", "field4", "field5", "field6", "field7");

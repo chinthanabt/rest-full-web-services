@@ -21,9 +21,12 @@ public class UserDAO {
 		users.add(new User(4, 10,"Hiru", new Date()));
 	}
 	
+
+	
 	public List<User> getUsers(){
 		return users;
 	}
+	
 	
 	public User addUser(User user){
 		user.setId(++idCount);

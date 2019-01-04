@@ -2,12 +2,16 @@ package com.chinthana.learn.springboot.restfull.restfullwebservices.dto;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;;
 
+@Entity
 public class User {
 	
+	@Id
 	private Integer id;
 	
 	@Min(value=1, message ="Age should be grattor than zero")

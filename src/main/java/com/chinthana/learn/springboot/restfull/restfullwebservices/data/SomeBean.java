@@ -5,10 +5,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonFilter("SomeBeanPropertyFilter")
+//To ignore set of properties
 @JsonIgnoreProperties(value= {"field2", "field3"})
 public class SomeBean {
 	
-	//To ignore the property de-serialized 
+	//To ignore the property to be de-serialized 
 	@JsonIgnore
 	private String field1;
 	
