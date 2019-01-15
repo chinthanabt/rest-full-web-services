@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.chinthana.learn.springboot.restfull.restfullwebservices.dao.UserDAO;
+import com.chinthana.learn.springboot.restfull.restfullwebservices.dto.Post;
 import com.chinthana.learn.springboot.restfull.restfullwebservices.dto.User;
+import com.chinthana.learn.springboot.restfull.restfullwebservices.service.PostService;
 import com.chinthana.learn.springboot.restfull.restfullwebservices.service.UserService;
 import com.chinthana.learn.springboot.restfull.restfullwebservices.utill.UserNotFoundException;
 
@@ -32,6 +34,9 @@ public class UserControllerJPA {
 	
 	@Autowired
     UserService userService;
+	
+	@Autowired
+    PostService postService;
 	
 	@Autowired
 	private MessageSource messageSource;
@@ -95,8 +100,36 @@ public class UserControllerJPA {
 //	}
 	
 	@GetMapping(path = "/jpa/goodmorning")
-	public String getMesage() {	  
-		//If we are using LocaleContextHolder.getLocale() we do not need to get the local from the request header.
-		   return messageSource.getMessage("good.morning", null, LocaleContextHolder.getLocale());	
-		}
+	public String getMesage() {
+		// If we are using LocaleContextHolder.getLocale() we do not need to get the
+		// local from the request header.
+		return messageSource.getMessage("good.morning", null, LocaleContextHolder.getLocale());
+	}
+	
+	@GetMapping(path = "/jpa/users/{id}/posts")
+	public List<Post> getPostByUserId(@PathVariable int id) {
+		User user = userService.getUser(id);
+		if(user == null)
+			throw new UserNotFoundException("User not found for given criteria");
+		return user.getPosts();
+	}
+	
+	@GetMapping(path = "/jpa/users/posts/{id}")
+	public Post getPostById(@PathVariable int id) {
+		Post post = postService.findById(id);		
+		return post;
+	}	
+	
+	@PostMapping(path = "/jpa/users/{id}/posts")
+	public ResponseEntity<Post> createPost(@PathVariable int id, @RequestBody Post post) {
+		User user = userService.getUser(id);
+		if(user == null)
+			throw new UserNotFoundException("User not found for given criteria");
+	
+		post.setUser(user);
+		Post createdPost = postService.addPost(post);
+		 //To bind the created recourse with response
+	     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdPost.getId()).toUri();		
+		return ResponseEntity.created(uri).build(); 
+	}
 }
